@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="19sp"
+            android:textStyle="bold"
             android:text="1. Chọn xe tăng bạn muốn đặt cược.\n\n2. Nhập số tiền cược cho xe tăng đã chọn. Bạn có thể đặt cược cho nhiều xe tăng cùng lúc.\n\n3. Nhấn nút 'Start' để bắt đầu cuộc đua. Các xe tăng sẽ bắt đầu chạy đua tới vạch đích.\n\n4. Xe tăng nào đến vạch đích đầu tiên sẽ là xe thắng cuộc. Nếu xe tăng bạn đặt cược thắng, bạn sẽ nhận được số tiền cược. Nếu thua, bạn sẽ mất số tiền cược.\n\n5. Sau cuộc đua, màn hình kết quả sẽ hiện ra thông báo bạn thắng hay thua, và số tiền hiện tại của bạn.\n\n6. Bạn có thể nhấn 'Reset' để chơi lại cuộc đua mới với số tiền hiện tại hoặc nhấn 'Back to Main' để trở về màn hình chính."
             android:padding="16dp"/>
     </ScrollView>
@@ -43,7 +44,7 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Back to Main"
+        android:text="Trở về Màn hình chính"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

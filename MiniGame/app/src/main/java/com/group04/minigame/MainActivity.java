@@ -1,6 +1,7 @@
 package com.group04.minigame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Runnable runnable;
     private Random random = new Random();
     private int money;
+    private MediaPlayer Click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
         tvMoney = findViewById(R.id.tvMoney);
+        Click = MediaPlayer.create(this, R.raw.clickbutton);
 
         // Get the current money from the intent if it exists
         Intent intent = getIntent();
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validateBets()) {
+                    Click.start();
                     startRace();
                 }
             }
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Click.start();
                 resetGame();
             }
         });
@@ -149,7 +154,20 @@ public class MainActivity extends AppCompatActivity {
         List<Integer> selectedTanks = getSelectedTanks();
         List<Integer> betAmounts = getBetAmounts(selectedTanks);
         boolean isWinner = false;
-        boolean isTie = winners.size() > 1;
+        boolean isTie = false;
+
+        // Check if the user has a tank in the winners
+        for (int selectedTank : selectedTanks) {
+            if (winners.contains(selectedTank)) {
+                isWinner = true;
+                break;
+            }
+        }
+
+        // Check for a tie
+        if (winners.size() > 1 && isWinner) {
+            isTie = true;
+        }
 
         int totalBet = 0;
         for (int betAmount : betAmounts) {
@@ -211,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
             int betAmount = betAmounts.get(i);
 
             if (winners.contains(selectedTank)) {
-                totalWinnings += betAmount;
+                totalWinnings += betAmount * 2;
             } else {
                 totalWinnings -= betAmount;
             }

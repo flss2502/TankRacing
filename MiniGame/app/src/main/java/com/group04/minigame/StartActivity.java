@@ -1,6 +1,7 @@
 package com.group04.minigame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button btnStart;
     private Button btnHuongDan;
     private Button btnSignOut;
+    MediaPlayer ClickIn;
+    MediaPlayer ClickOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         btnStart = findViewById(R.id.btnStart);
         btnHuongDan = findViewById(R.id.btnHuongDan);
         btnSignOut = findViewById(R.id.btnSignOut);
+
+        ClickIn = MediaPlayer.create(this, R.raw.clickbutton);
+        ClickOut = MediaPlayer.create(this, R.raw.backbutton);
 
         btnStart.setOnClickListener(this);
         btnHuongDan.setOnClickListener(this);
@@ -39,16 +45,25 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
+    private void signOut() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnStart) {
+            ClickIn.start();
             start();
         }
         if (v.getId() == R.id.btnHuongDan) {
+            ClickIn.start();
             huongDan();
         }
         if (v.getId() == R.id.btnSignOut) {
-
+            ClickOut.start();
+            signOut();
         }
     }
 }

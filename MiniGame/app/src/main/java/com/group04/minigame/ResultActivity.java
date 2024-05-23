@@ -1,6 +1,7 @@
 package com.group04.minigame;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ public class ResultActivity extends AppCompatActivity {
     private TextView tvResult, tvMoney;
     private LinearLayout imgSelectedTanks, imgWinningTanks;
     private Button btnReset, btnBackToMain;
+    private MediaPlayer ClickOut;
+    private MediaPlayer resultSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         tvMoney = findViewById(R.id.tvMoney);
         btnReset = findViewById(R.id.btnReset);
         btnBackToMain = findViewById(R.id.btnBackToMain);
+        ClickOut = MediaPlayer.create(this,R.raw.backbutton);
 
         Intent intent = getIntent();
         List<Integer> selectedTanks = intent.getIntegerArrayListExtra("selectedTanks");
@@ -36,15 +40,22 @@ public class ResultActivity extends AppCompatActivity {
         int betAmount = intent.getIntExtra("betAmount", 0);
         int newMoney = intent.getIntExtra("newMoney", 0);
 
+        Intent musicIntent = new Intent(this, MusicService.class);
+        stopService(musicIntent);
+
         if (isWinner) {
             tvResult.setText("Bạn đã thắng! Bạn nhận được: " + betAmount);
+            resultSound = MediaPlayer.create(this, R.raw.win);
         } else if (isTie) {
             tvResult.setText("Trận đấu hòa! Bạn nhận lại số tiền đã cược: " + betAmount);
+            resultSound = MediaPlayer.create(this, R.raw.tie);
         } else {
             tvResult.setText("Bạn đã thua! Bạn mất: " + betAmount);
+            resultSound = MediaPlayer.create(this, R.raw.lose);
         }
 
-        // Display selected tanks
+        resultSound.start();
+
         for (int tank : selectedTanks) {
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
@@ -52,7 +63,6 @@ public class ResultActivity extends AppCompatActivity {
             imgSelectedTanks.addView(imageView);
         }
 
-        // Display winning tanks
         for (int tank : winningTanks) {
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
@@ -65,8 +75,13 @@ public class ResultActivity extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClickOut.start();
+                resultSound.stop();
+                resultSound.release();
+
+                startService(musicIntent);
                 Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-                intent.putExtra("currentMoney", newMoney); // Pass the updated money
+                intent.putExtra("currentMoney", newMoney);
                 startActivity(intent);
             }
         });
@@ -74,6 +89,7 @@ public class ResultActivity extends AppCompatActivity {
         btnBackToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ClickOut.start();
                 Intent intent = new Intent(ResultActivity.this, StartActivity.class);
                 startActivity(intent);
             }
