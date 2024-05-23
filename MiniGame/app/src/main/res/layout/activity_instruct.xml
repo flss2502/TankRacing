@@ -3,21 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/racing_background"
+    android:background="@drawable/nen2"
     tools:context=".InstructActivity">
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="368dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/racing_background"
         android:text="Hướng Dẫn Chơi Đua Xe Tăng"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -46,7 +49,7 @@
                     android:id="@+id/tvInstructions1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
+                    android:textColor="#FFEB3B"
                     android:textSize="19sp"
                     android:textStyle="bold"
                     android:text="1. Trong trò chơi, có tổng cộng 4 loại xe tăng khác nhau để bạn có thể chọn."
@@ -88,7 +91,7 @@
                 android:id="@+id/tvInstructions2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="#FFEB3B"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 android:text="2. Chọn một hoặc nhiều loại xe tăng mà bạn muốn đặt cược."
@@ -99,7 +102,7 @@
                 android:id="@+id/tvInstructions3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="#FFEB3B"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 android:text="3. Nhập số tiền cược cho mỗi loại xe tăng bạn đã chọn. Bạn có thể đặt cược cho mỗi loại xe tăng một số tiền khác nhau."
@@ -110,7 +113,7 @@
                 android:id="@+id/tvInstructions4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="#FFEB3B"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 android:text="4. Nhấn nút 'Start' để bắt đầu cuộc đua."
@@ -121,12 +124,12 @@
                 android:id="@+id/tvInstructions6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="#FFEB3B"
                 android:textSize="19sp"
                 android:textStyle="bold"
                 android:text="5. Sau khi cuộc đua kết thúc, màn hình kết quả sẽ hiện ra để thông báo kết quả."
                 android:padding="16dp"/>
-            
+
         </LinearLayout>
 
     </ScrollView>

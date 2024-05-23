@@ -11,11 +11,15 @@ public class InstructActivity extends AppCompatActivity {
 
     private Button btnBack;
     private MediaPlayer ClickOut;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instruct);
+
+        Intent intentFromLogin = getIntent();
+        username = intentFromLogin.getStringExtra("username");
 
         btnBack = findViewById(R.id.btnBack);
         ClickOut = MediaPlayer.create(this, R.raw.backbutton);
@@ -25,6 +29,7 @@ public class InstructActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ClickOut.start();
                 Intent intent = new Intent(InstructActivity.this, StartActivity.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });

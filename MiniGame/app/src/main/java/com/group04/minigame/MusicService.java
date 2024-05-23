@@ -18,7 +18,7 @@ public class MusicService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.audio); // Thay `background_music` bằng tên file nhạc của bạn
+            mediaPlayer = MediaPlayer.create(this, R.raw.audio);
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }

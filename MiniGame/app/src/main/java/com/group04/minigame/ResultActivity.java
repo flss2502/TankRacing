@@ -11,13 +11,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.List;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvResult, tvMoney;
     private LinearLayout imgSelectedTanks, imgWinningTanks;
     private Button btnReset, btnBackToMain;
     private MediaPlayer ClickOut;
     private MediaPlayer resultSound;
+    private String username;
+    private int newMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,27 +32,28 @@ public class ResultActivity extends AppCompatActivity {
         tvMoney = findViewById(R.id.tvMoney);
         btnReset = findViewById(R.id.btnReset);
         btnBackToMain = findViewById(R.id.btnBackToMain);
-        ClickOut = MediaPlayer.create(this,R.raw.backbutton);
+        ClickOut = MediaPlayer.create(this, R.raw.backbutton);
 
         Intent intent = getIntent();
+        username = intent.getStringExtra("username");
         List<Integer> selectedTanks = intent.getIntegerArrayListExtra("selectedTanks");
         List<Integer> winningTanks = intent.getIntegerArrayListExtra("winningTanks");
         boolean isWinner = intent.getBooleanExtra("isWinner", false);
         boolean isTie = intent.getBooleanExtra("isTie", false);
         int betAmount = intent.getIntExtra("betAmount", 0);
-        int newMoney = intent.getIntExtra("newMoney", 0);
-
+        newMoney = intent.getIntExtra("currentMoney", 0);
+        int totalWinning = intent.getIntExtra("totalWinnings", 0);
         Intent musicIntent = new Intent(this, MusicService.class);
         stopService(musicIntent);
 
         if (isWinner) {
-            tvResult.setText("Bạn đã thắng! Bạn nhận được: " + betAmount);
+            tvResult.setText("Bạn đã thắng! Bạn nhận được: " + totalWinning + "$");
             resultSound = MediaPlayer.create(this, R.raw.win);
         } else if (isTie) {
-            tvResult.setText("Trận đấu hòa! Bạn nhận lại số tiền đã cược: " + betAmount);
+            tvResult.setText("Trận đấu hòa! Bạn nhận lại số tiền đã cược: " + totalWinning + "$");
             resultSound = MediaPlayer.create(this, R.raw.tie);
         } else {
-            tvResult.setText("Bạn đã thua! Bạn mất: " + betAmount);
+            tvResult.setText("Bạn đã thua! Bạn mất: " + betAmount + "$");
             resultSound = MediaPlayer.create(this, R.raw.lose);
         }
 
@@ -70,30 +73,9 @@ public class ResultActivity extends AppCompatActivity {
             imgWinningTanks.addView(imageView);
         }
 
-        tvMoney.setText("Số tiền còn lại: " + newMoney);
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClickOut.start();
-                resultSound.stop();
-                resultSound.release();
-
-                startService(musicIntent);
-                Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-                intent.putExtra("currentMoney", newMoney);
-                startActivity(intent);
-            }
-        });
-
-        btnBackToMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClickOut.start();
-                Intent intent = new Intent(ResultActivity.this, StartActivity.class);
-                startActivity(intent);
-            }
-        });
+        tvMoney.setText("Số tiền còn lại: " + newMoney + "$");
+        btnReset.setOnClickListener(this);
+        btnBackToMain.setOnClickListener(this);
     }
 
     private int getTankDrawable(int tankNumber) {
@@ -108,6 +90,42 @@ public class ResultActivity extends AppCompatActivity {
                 return R.drawable.tank_4;
             default:
                 return R.drawable.tank_1;
+        }
+    }
+
+    private void reset() {
+        Intent musicIntent = new Intent(this, MusicService.class);
+        startService(musicIntent);
+        Intent intent = new Intent(ResultActivity.this, MainActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("currentMoney", newMoney);
+        startActivity(intent);
+        finish();
+    }
+
+    private void backToMain() {
+        Intent musicIntent = new Intent(this, MusicService.class);
+        startService(musicIntent);
+        Intent intent = new Intent(ResultActivity.this, StartActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("currentMoney", newMoney);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnReset) {
+            ClickOut.start();
+            resultSound.stop();
+            resultSound.release();
+            reset();
+        }
+        if (v.getId() == R.id.btnBackToMain) {
+            ClickOut.start();
+            resultSound.stop();
+            resultSound.release();
+            backToMain();
         }
     }
 }

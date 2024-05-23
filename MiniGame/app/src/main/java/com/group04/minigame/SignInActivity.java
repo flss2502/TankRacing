@@ -53,12 +53,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (!checkInput()) {
             return;
         }
+        String username = etUserName.getText().toString();
+        String password = etPassWord.getText().toString();
 
-        if ((TextUtils.equals(etUserName.getText().toString(), "admin"))
-                && (TextUtils.equals(etPassWord.getText().toString(), "123456"))) {
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
-        finish();
+        // Perform authentication here (this is a placeholder)
+        if ((TextUtils.equals(username, "admin"))
+                && (TextUtils.equals(password, "123456"))) {
+            Intent intent = new Intent(SignInActivity.this, StartActivity.class);
+            intent.putExtra("username", username);
+            intent.putExtra("currentMoney", 1000); // Initial money
+            startActivity(intent);
+            finish();
         }
     }
 

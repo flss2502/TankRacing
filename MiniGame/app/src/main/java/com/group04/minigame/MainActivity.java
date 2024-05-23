@@ -8,13 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
     private EditText etBet1, etBet2, etBet3, etBet4;
     private Button startButton, resetButton;
-    private TextView tvMoney;
+    private TextView tvMoney, tvUserInfo;
+    private ImageView imgUserProfile;
     private Handler handler = new Handler();
     private Runnable runnable;
     private Random random = new Random();
     private int money;
     private MediaPlayer Click;
+    private String username;
+    private int totalWinnings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +55,24 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.startButton);
         resetButton = findViewById(R.id.resetButton);
         tvMoney = findViewById(R.id.tvMoney);
+        tvUserInfo = findViewById(R.id.tvUserInfo);
+        imgUserProfile = findViewById(R.id.imgUserProfile);
         Click = MediaPlayer.create(this, R.raw.clickbutton);
 
-        // Get the current money from the intent if it exists
         Intent intent = getIntent();
+        username = intent.getStringExtra("username");
+        if (intent.hasExtra("username")) {
+            String username = intent.getStringExtra("username");
+        }
+        imgUserProfile.setImageResource(R.drawable.gamer);
+
+        // Get the current money from the intent if it exists
         if (intent.hasExtra("currentMoney")) {
             money = intent.getIntExtra("currentMoney", 1000);
         } else {
             money = 1000; // Initial money if no intent extra
         }
-
+        tvUserInfo.setText("Người dùng: " + username);
         tvMoney.setText("Số tiền: " + money + "$");
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -181,10 +195,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putIntegerArrayListExtra("selectedTanks", new ArrayList<>(selectedTanks));
         intent.putIntegerArrayListExtra("winningTanks", new ArrayList<>(winners));
         intent.putIntegerArrayListExtra("betAmounts", new ArrayList<>(betAmounts));
+        intent.putExtra("username", username);
         intent.putExtra("isWinner", isWinner);
         intent.putExtra("isTie", isTie);
         intent.putExtra("newMoney", newMoney);
+        intent.putExtra("currentMoney", money);
         intent.putExtra("betAmount", totalBet);
+        intent.putExtra("totalWinning",totalWinnings);
         startActivity(intent);
 
         startButton.setEnabled(true);
@@ -222,14 +239,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int calculateMoney(List<Integer> winners, List<Integer> selectedTanks, List<Integer> betAmounts) {
-        int totalWinnings = 0;
 
         for (int i = 0; i < selectedTanks.size(); i++) {
             int selectedTank = selectedTanks.get(i);
             int betAmount = betAmounts.get(i);
 
             if (winners.contains(selectedTank)) {
-                totalWinnings += betAmount * 2;
+                totalWinnings += betAmount;
             } else {
                 totalWinnings -= betAmount;
             }

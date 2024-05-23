@@ -14,11 +14,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignOut;
     MediaPlayer ClickIn;
     MediaPlayer ClickOut;
+    private String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        Intent intentFromLogin = getIntent();
+        username = intentFromLogin.getStringExtra("username");
 
         btnStart = findViewById(R.id.btnStart);
         btnHuongDan = findViewById(R.id.btnHuongDan);
@@ -35,18 +40,21 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private void start() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
         finish();
     }
 
     private void huongDan() {
         Intent intent = new Intent(this, InstructActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
         finish();
     }
 
     private void signOut() {
         Intent intent = new Intent(this, SignInActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
         finish();
     }
