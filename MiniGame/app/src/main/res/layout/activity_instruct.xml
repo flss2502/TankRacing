@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,15 +28,107 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp">
 
-        <TextView
-            android:id="@+id/tvInstructions"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            android:text="1. Chọn xe tăng bạn muốn đặt cược.\n\n2. Nhập số tiền cược cho xe tăng đã chọn. Bạn có thể đặt cược cho nhiều xe tăng cùng lúc.\n\n3. Nhấn nút 'Start' để bắt đầu cuộc đua. Các xe tăng sẽ bắt đầu chạy đua tới vạch đích.\n\n4. Xe tăng nào đến vạch đích đầu tiên sẽ là xe thắng cuộc. Nếu xe tăng bạn đặt cược thắng, bạn sẽ nhận được số tiền cược. Nếu thua, bạn sẽ mất số tiền cược.\n\n5. Sau cuộc đua, màn hình kết quả sẽ hiện ra thông báo bạn thắng hay thua, và số tiền hiện tại của bạn.\n\n6. Bạn có thể nhấn 'Reset' để chơi lại cuộc đua mới với số tiền hiện tại hoặc nhấn 'Back to Main' để trở về màn hình chính."
-            android:padding="16dp"/>
+            android:orientation="vertical">
+
+            <!-- Hướng dẫn 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+
+
+                <TextView
+                    android:id="@+id/tvInstructions1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    android:text="1. Trong trò chơi, có tổng cộng 4 loại xe tăng khác nhau để bạn có thể chọn."
+                    android:layout_weight="1"
+                    android:padding="16dp"/>
+
+                <ImageView
+                    android:id="@+id/imgTank1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/tank_1"
+                    android:layout_marginEnd="16dp"/>
+
+                <ImageView
+                    android:id="@+id/imgTank2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/tank_2"
+                    android:layout_marginEnd="16dp"/>
+
+                <ImageView
+                    android:id="@+id/imgTank3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/tank_3"
+                    android:layout_marginEnd="16dp"/>
+
+                <ImageView
+                    android:id="@+id/imgTank4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/tank_4"
+                    android:layout_marginEnd="16dp"/>
+
+            </LinearLayout>
+
+            <!-- Hướng dẫn 2 -->
+            <TextView
+                android:id="@+id/tvInstructions2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="2. Chọn một hoặc nhiều loại xe tăng mà bạn muốn đặt cược."
+                android:padding="16dp"/>
+
+            <!-- Hướng dẫn 3 -->
+            <TextView
+                android:id="@+id/tvInstructions3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="3. Nhập số tiền cược cho mỗi loại xe tăng bạn đã chọn. Bạn có thể đặt cược cho mỗi loại xe tăng một số tiền khác nhau."
+                android:padding="16dp"/>
+
+            <!-- Hướng dẫn 4 -->
+            <TextView
+                android:id="@+id/tvInstructions4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="4. Nhấn nút 'Start' để bắt đầu cuộc đua."
+                android:padding="16dp"/>
+
+            <!-- Hướng dẫn 6 -->
+            <TextView
+                android:id="@+id/tvInstructions6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:text="5. Sau khi cuộc đua kết thúc, màn hình kết quả sẽ hiện ra để thông báo kết quả."
+                android:padding="16dp"/>
+            
+        </LinearLayout>
+
     </ScrollView>
 
     <Button

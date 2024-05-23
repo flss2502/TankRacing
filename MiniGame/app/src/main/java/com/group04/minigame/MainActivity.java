@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             money = 1000; // Initial money if no intent extra
         }
 
-        tvMoney.setText("Số tiền: " + money);
+        tvMoney.setText("Số tiền: " + money + "$");
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
