@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private int money;
     private MediaPlayer Click;
     private String username;
-    private int totalWinnings;
+    private int totalWinnings, newMoney;
+    private Boolean isWinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         List<Integer> selectedTanks = getSelectedTanks();
         List<Integer> betAmounts = getBetAmounts(selectedTanks);
-        boolean isWinner = false;
+        isWinner = false;
         boolean isTie = false;
 
         // Check if the user has a tank in the winners
@@ -188,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             totalBet += betAmount;
         }
 
-        int newMoney = calculateMoney(winners, selectedTanks, betAmounts);
+        newMoney = calculateMoney(winners, selectedTanks, betAmounts);
 
         // Start ResultActivity
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);

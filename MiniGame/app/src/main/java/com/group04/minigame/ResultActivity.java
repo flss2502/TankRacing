@@ -13,25 +13,22 @@ import java.util.List;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvResult, tvMoney;
-    private LinearLayout imgSelectedTanks, imgWinningTanks;
-    private Button btnReset, btnBackToMain;
     private MediaPlayer ClickOut;
     private MediaPlayer resultSound;
     private String username;
-    private int newMoney;
+    private int newMoney, totalWinning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        imgSelectedTanks = findViewById(R.id.imgSelectedTanks);
-        imgWinningTanks = findViewById(R.id.imgWinningTanks);
-        tvResult = findViewById(R.id.tvResult);
-        tvMoney = findViewById(R.id.tvMoney);
-        btnReset = findViewById(R.id.btnReset);
-        btnBackToMain = findViewById(R.id.btnBackToMain);
+        LinearLayout imgSelectedTanks = findViewById(R.id.imgSelectedTanks);
+        LinearLayout imgWinningTanks = findViewById(R.id.imgWinningTanks);
+        TextView tvResult = findViewById(R.id.tvResult);
+        TextView tvMoney = findViewById(R.id.tvMoney);
+        Button btnReset = findViewById(R.id.btnReset);
+        Button btnBackToMain = findViewById(R.id.btnBackToMain);
         ClickOut = MediaPlayer.create(this, R.raw.backbutton);
 
         Intent intent = getIntent();
@@ -42,18 +39,18 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         boolean isTie = intent.getBooleanExtra("isTie", false);
         int betAmount = intent.getIntExtra("betAmount", 0);
         newMoney = intent.getIntExtra("currentMoney", 0);
-        int totalWinning = intent.getIntExtra("totalWinnings", 0);
+        totalWinning = intent.getIntExtra("totalWinning", 0);
         Intent musicIntent = new Intent(this, MusicService.class);
         stopService(musicIntent);
 
         if (isWinner) {
-            tvResult.setText("Bạn đã thắng! Bạn nhận được: " + totalWinning + "$");
+            tvResult.setText("Bạn nhận được: " + totalWinning + "$");
             resultSound = MediaPlayer.create(this, R.raw.win);
         } else if (isTie) {
-            tvResult.setText("Trận đấu hòa! Bạn nhận lại số tiền đã cược: " + totalWinning + "$");
+            tvResult.setText("Bạn nhận lại số tiền đã cược: " + totalWinning + "$");
             resultSound = MediaPlayer.create(this, R.raw.tie);
         } else {
-            tvResult.setText("Bạn đã thua! Bạn mất: " + betAmount + "$");
+            tvResult.setText("Bạn mất: " + betAmount + "$");
             resultSound = MediaPlayer.create(this, R.raw.lose);
         }
 

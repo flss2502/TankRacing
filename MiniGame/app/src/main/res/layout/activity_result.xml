@@ -72,19 +72,22 @@
     </LinearLayout>
 
     <!-- Kết quả -->
+
+    <!-- Số tiền còn lại -->
+
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Kết quả: "
         android:textColor="@color/white"
         android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/winningTanksLayout" />
 
-    <!-- Số tiền còn lại -->
     <TextView
         android:id="@+id/tvMoney"
         android:layout_width="0dp"
@@ -102,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Chơi lại"
+        android:text="Chơi tiếp"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

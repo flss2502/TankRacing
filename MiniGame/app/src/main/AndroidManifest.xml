@@ -24,10 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StartActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".InstructActivity"></activity>
+        <activity android:name=".StartActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ResultActivity"/>
+        <activity android:name=".InstructActivity"/>
     </application>
 
 </manifest>

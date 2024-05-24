@@ -34,16 +34,4 @@ public class MusicService extends Service {
         }
         super.onDestroy();
     }
-
-    public void pauseMusic() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-        }
-    }
-
-    public void resumeMusic() {
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
-        }
-    }
 }
